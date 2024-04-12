@@ -5,7 +5,6 @@ import com.lawnmower.Tondeuse.position.Tondeuse;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
@@ -44,16 +43,16 @@ public class BatchConfiguration {
     private ItemReader<Tondeuse> tondeuseItemReader;
 
     @Autowired
-    private ItemWriter<Tondeuse> tondeuseItemWriter ;
+    private ItemWriter<Position> tondeuseItemWriter ;
 
     @Autowired
-    private ItemProcessor<Tondeuse, Tondeuse> tondeuseItemProcessor;
+    private ItemProcessor<Tondeuse, Position> tondeuseItemProcessor;
 
     // la méthode de config qui permet de retourner un Job
     @Bean
     public Job tondeuseJob() {
         Step step = new StepBuilder("tondeuse-data-load-step", jobRepository)
-                .<Tondeuse, Tondeuse>chunk(1, transactionManager)
+                .<Tondeuse, Position>chunk(1, transactionManager)
                 .reader(tondeuseItemReader)
                 .processor(tondeuseItemProcessor)
                 .writer(tondeuseItemWriter)

@@ -10,27 +10,24 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class TondeuseProcessor implements ItemProcessor<Tondeuse, Tondeuse> {
+public class TondeuseProcessor implements ItemProcessor<Tondeuse, Position> {
 
 
     // Implémenter la logique de traitement ici
     @Override
-    public Tondeuse process(Tondeuse tondeuse) {
-
+    public Position process(Tondeuse tondeuse) {
         Position position = tondeuse.getPosition();
         for (char instruction : tondeuse.getInstructions().toCharArray()) {
             switch (instruction) {
                 case 'D' -> position = turnRight(position);
                 case 'G' -> position = turnLeft(position);
-                case 'A' -> position = moveForward(position);
+                case 'A' -> position = moveForward(position, 5, 5);
                 default -> {
                 }
                 // Ignore unknown instruction
             }
         }
-        Tondeuse tondeusePositionFinal = new Tondeuse();
-        tondeuse.setPosition(position);
-        return tondeusePositionFinal;
+        return position;
     }
 
 
@@ -79,19 +76,26 @@ public class TondeuseProcessor implements ItemProcessor<Tondeuse, Tondeuse> {
      * @param position position
      * @return Retourner la nouvelle position
      */
-    private Position moveForward(Position position) {
+    private Position moveForward(Position position, int xMax, int yMax) {
         char orientation = position.getOrientation();
         int x = position.getX();
         int y = position.getY();
-        return switch (orientation) {
-            case 'N' -> new Position(x, y + 1, orientation);
-            case 'E' -> new Position(x + 1, y, orientation);
-            case 'S' -> new Position(x, y - 1, orientation);
-            case 'W' -> new Position(x - 1, y, orientation);
-            default ->
-                // Should not happen, return unchanged position
-                    position;
-        };
+
+        switch (orientation) {
+            case 'N' -> y = y + 1;
+            case 'E' -> x = x + 1;
+            case 'S' -> y = y - 1;
+            case 'W' -> x = x - 1;
+        }
+
+        // Vérifier si la nouvelle position est à l'intérieur de la pelouse
+        if (x >= 0 && x <= xMax && y >= 0 && y <= yMax) {
+            // La nouvelle position est à l'intérieur de la pelouse, retourner la nouvelle position
+            return new Position(xMax, yMax, orientation);
+        } else {
+            // La nouvelle position est en dehors de la pelouse, retourner la position actuelle sans la modifier
+            return position;
+        }
     }
 
 }

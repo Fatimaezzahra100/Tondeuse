@@ -15,19 +15,18 @@ import java.io.PrintWriter;
  */
 
 @Component
-public class PositionWriter implements ItemWriter<Tondeuse> {
+public class PositionWriter implements ItemWriter<Position> {
     private final String outputFilePath;
 
     public PositionWriter(@Value("${outputFile}") String outputFilePath) {
         this.outputFilePath = outputFilePath;
     }
 
-    // Implémenter la logique d'écriture ici
     @Override
-    public void write(Chunk<? extends Tondeuse> finalPositions) throws Exception {
+    public void write(Chunk<? extends Position> finalPositions) throws Exception {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputFilePath))) {
-            for (Tondeuse tondeuse : finalPositions) {
-                writer.println(tondeuse.getPosition().getX() + " " + tondeuse.getPosition().getY() + " " + tondeuse.getPosition().getOrientation());
+            for (Position position : finalPositions) {
+                writer.println(position.getX() + " " + position.getY() + " " + position.getOrientation());
             }
         }
 
