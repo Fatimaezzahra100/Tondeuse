@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 
-/**
- * Écrivain Spring Batch pour écrire les positions finales des tondeuses dans un fichier de sortie
- */
 @Component
 @StepScope
 public class TondeuseWriter extends FlatFileItemWriter<Position> {

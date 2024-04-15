@@ -2,16 +2,17 @@ package com.lawnmower.Tondeuse.batchConfig;
 
 import com.lawnmower.Tondeuse.model.Position;
 import com.lawnmower.Tondeuse.model.Tondeuse;
+import lombok.NoArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-/**
- * Processeur Spring Batch pour traiter les instructions de la tondeuse
- */
 
+@NoArgsConstructor
 @Component
 public class TondeuseProcessor implements ItemProcessor<Tondeuse, Position> {
-    private final TondeuseReader tondeuseReader;
+    @Autowired
+    TondeuseReader tondeuseReader;
 
     public TondeuseProcessor(TondeuseReader tondeuseReader) {
         this.tondeuseReader = tondeuseReader;
@@ -68,6 +69,7 @@ public class TondeuseProcessor implements ItemProcessor<Tondeuse, Position> {
         };
     }
 
+
     /**
      * Implémenter la logique de déplacement en avant
      *
@@ -86,14 +88,14 @@ public class TondeuseProcessor implements ItemProcessor<Tondeuse, Position> {
             case "W" -> x = x - 1;
         }
 
-        // Vérifier si la nouvelle position est à l'intérieur de la pelouse
+        return this.checkIfTondeuseIsInsidePelouse(x, y, xMax, yMax, orientation, position);
+    }
+
+    private Position checkIfTondeuseIsInsidePelouse(int x, int y, int xMax, int yMax, String orientation, Position position) {
         if (x >= 0 && x <= xMax && y >= 0 && y <= yMax) {
-            // La nouvelle position est à l'intérieur de la pelouse, retourner la nouvelle position
             return new Position(x, y, orientation);
-        } else {
-            // La nouvelle position est en dehors de la pelouse, retourner la position actuelle sans la modifier
-            return position;
         }
+        return position;
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +17,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-/**
- * Lecteur Spring Batch pour lire les données à partir du fichier
- */
 
 @Log4j2
 @Component
@@ -32,15 +30,14 @@ public class TondeuseReader extends FlatFileItemReader<Tondeuse> {
     }
 
     private void initializeReader(String inputData) throws MalformedURLException {
-        // Extract maxX and maxY from the first line
-        readFirstLine(inputData);
+        this.readFirstLine();
 
         setLineMapper(createLineMapper());
-        setResource(new UrlResource(inputData));
+        setResource(new FileSystemResource(inputData));
         setLinesToSkip(1);
     }
 
-    private void readFirstLine(String inputData) {
+    private void readFirstLine() {
         try (BufferedReader br = new BufferedReader(new FileReader(TondeuseConstant.DATA_INPUT))) {
             String line = br.readLine();
             if (line != null) {
@@ -60,10 +57,8 @@ public class TondeuseReader extends FlatFileItemReader<Tondeuse> {
     }
 
     private static DefaultLineMapper<Tondeuse> createLineMapper() {
-        // Reads data from file and maps it to Trimmer object
         DefaultLineMapper<com.lawnmower.Tondeuse.model.Tondeuse> lineMapper = new DefaultLineMapper<>();
 
-        // a row tokenizer is created to split each row into tokens based on a delimiter
         DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
         tokenizer.setDelimiter(" ");
         tokenizer.setNames("positionX", "positionY", "orientation", "instructions");
@@ -82,6 +77,5 @@ public class TondeuseReader extends FlatFileItemReader<Tondeuse> {
     public int getMaxY() {
         return maxY;
     }
-
 
 }
