@@ -1,9 +1,8 @@
 package com.lawnmower.Tondeuse.batchConfig;
 
-import com.lawnmower.Tondeuse.position.Pelouse;
-import com.lawnmower.Tondeuse.position.Position;
+import com.lawnmower.Tondeuse.model.Position;
 
-import com.lawnmower.Tondeuse.position.Tondeuse;
+import com.lawnmower.Tondeuse.model.Tondeuse;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;

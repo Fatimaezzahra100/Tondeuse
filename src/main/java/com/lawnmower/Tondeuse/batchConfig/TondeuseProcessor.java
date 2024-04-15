@@ -1,7 +1,7 @@
 package com.lawnmower.Tondeuse.batchConfig;
 
-import com.lawnmower.Tondeuse.position.Position;
-import com.lawnmower.Tondeuse.position.Tondeuse;
+import com.lawnmower.Tondeuse.model.Position;
+import com.lawnmower.Tondeuse.model.Tondeuse;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 

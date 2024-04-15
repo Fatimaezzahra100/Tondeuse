@@ -1,6 +1,6 @@
 package com.lawnmower.Tondeuse.batchConfig;
 
-import com.lawnmower.Tondeuse.position.Position;
+import com.lawnmower.Tondeuse.model.Position;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;

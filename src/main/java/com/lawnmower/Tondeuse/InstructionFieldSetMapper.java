@@ -1,7 +1,7 @@
 package com.lawnmower.Tondeuse;
 
-import com.lawnmower.Tondeuse.position.Position;
-import com.lawnmower.Tondeuse.position.Tondeuse;
+import com.lawnmower.Tondeuse.model.Position;
+import com.lawnmower.Tondeuse.model.Tondeuse;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 

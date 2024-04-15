@@ -2,15 +2,11 @@ package com.lawnmower.Tondeuse.batchConfig;
 
 
 import com.lawnmower.Tondeuse.InstructionFieldSetMapper;
-import com.lawnmower.Tondeuse.position.Position;
-import com.lawnmower.Tondeuse.position.Tondeuse;
-import org.springframework.batch.core.StepExecution;
+import com.lawnmower.Tondeuse.model.Tondeuse;
 import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.item.*;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
@@ -34,7 +30,7 @@ public class TondeuseReader extends FlatFileItemReader<Tondeuse>{
         setResource(new UrlResource(inputData));
     }
     private static DefaultLineMapper<Tondeuse> createLineMapper() {
-        DefaultLineMapper<com.lawnmower.Tondeuse.position.Tondeuse> lineMapper = new DefaultLineMapper<>();
+        DefaultLineMapper<com.lawnmower.Tondeuse.model.Tondeuse> lineMapper = new DefaultLineMapper<>();
 
         DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
         tokenizer.setDelimiter(" ");

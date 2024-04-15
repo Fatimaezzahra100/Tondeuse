@@ -1,4 +1,4 @@
-package com.lawnmower.Tondeuse.position;
+package com.lawnmower.Tondeuse.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
