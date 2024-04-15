@@ -1,25 +1,52 @@
 package com.lawnmower.Tondeuse.batchConfig;
 
+
+import com.lawnmower.Tondeuse.InstructionFieldSetMapper;
 import com.lawnmower.Tondeuse.position.Position;
 import com.lawnmower.Tondeuse.position.Tondeuse;
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.NonTransientResourceException;
-import org.springframework.batch.item.ParseException;
-import org.springframework.batch.item.UnexpectedInputException;
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.item.*;
+import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.mapping.DefaultLineMapper;
+import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.MalformedURLException;
 
 /**
  * Lecteur Spring Batch pour lire les données à partir du fichier
  */
 
 
-public class TondeuseReader {
+@Component
+@StepScope
+public class TondeuseReader extends FlatFileItemReader<Tondeuse>{
+
+    public TondeuseReader(@Value("${inputFile}") String inputData) throws MalformedURLException {
+        initializeReader(inputData);
+    }
+    private void initializeReader(String inputData) throws MalformedURLException {
+        setLineMapper(createLineMapper());
+        setResource(new UrlResource(inputData));
+    }
+    private static DefaultLineMapper<Tondeuse> createLineMapper() {
+        DefaultLineMapper<com.lawnmower.Tondeuse.position.Tondeuse> lineMapper = new DefaultLineMapper<>();
+
+        DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
+        tokenizer.setDelimiter(" ");
+        tokenizer.setNames("maxX", "maxY", "positionX", "positionY", "orientation", "instructions");
+
+        InstructionFieldSetMapper fieldSetMapper = new InstructionFieldSetMapper();
+        lineMapper.setLineTokenizer(tokenizer);
+        lineMapper.setFieldSetMapper(fieldSetMapper);
+
+        return lineMapper;
+    }
+
+
 
 }

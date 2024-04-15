@@ -27,7 +27,7 @@ public class BatchController {
     public BatchStatus executeBatch() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
         JobParameters jobParameters = new JobParametersBuilder()
-                .addLong("time", System.currentTimeMillis())
+                .addLong("startTime", System.currentTimeMillis())
                 .toJobParameters();
 
         JobExecution jobExecution = jobLauncher.run(tondeuseJob, jobParameters);
