@@ -1,7 +1,6 @@
 package com.lawnmower.Tondeuse.batchConfig;
 
 
-import com.lawnmower.Tondeuse.InstructionFieldSetMapper;
 import com.lawnmower.Tondeuse.model.Tondeuse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -50,7 +49,7 @@ public class TondeuseReader extends FlatFileItemReader<Tondeuse> {
                     maxX = Integer.parseInt(values[0].trim());
                     maxY = Integer.parseInt(values[1].trim());
                 } else {
-                    log.info("La ligne ne contient pas deux nombres entiers.");
+                    log.info("La ligne ne contient de nombre");
                 }
             } else {
                 log.info("Le fichier est vide.");

@@ -1,4 +1,4 @@
-package com.lawnmower.Tondeuse;
+package com.lawnmower.Tondeuse.batchConfig;
 
 import com.lawnmower.Tondeuse.model.Position;
 import com.lawnmower.Tondeuse.model.Tondeuse;
