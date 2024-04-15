@@ -17,7 +17,7 @@ On peut utiliser un container Docker pour déployer l'application, via la créat
  Ensuite déployer ces conteneurs sur n'importe quelle plateforme prenant en charge Docker, y compris les serveurs locaux et les environnements de développement. 
 
 
-### 3- Utilisation d'outils de déploiement automatisé :
+## 3- Utilisation d'outils de déploiement automatisé :
 
 On peut également utiliser des outils d'intégration continue et de déploiement continu (CI/CD) tels que Jenkins, GitLab CI/CD, etc. pour automatiser le processus de déploiement de l'application.
 Ces outils vous permettent de définir des pipelines de déploiement automatisés qui compilent, testent et déploient automatiquement l'application à chaque changement de code.
