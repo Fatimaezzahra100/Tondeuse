@@ -12,10 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Tondeuse {
 
-    private int maxX;
-
-    private int maxY;
-
     private Position position;
 
     private String instructions;

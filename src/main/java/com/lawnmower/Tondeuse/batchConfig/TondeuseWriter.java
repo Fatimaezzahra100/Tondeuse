@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 /**
  * Écrivain Spring Batch pour écrire les positions finales des tondeuses dans un fichier de sortie
  */
-
-
 @Component
 @StepScope
 public class TondeuseWriter extends FlatFileItemWriter<Position> {

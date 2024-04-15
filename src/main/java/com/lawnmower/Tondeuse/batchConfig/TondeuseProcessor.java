@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TondeuseProcessor implements ItemProcessor<Tondeuse, Position> {
+    private final TondeuseReader tondeuseReader;
+
+    public TondeuseProcessor(TondeuseReader tondeuseReader) {
+        this.tondeuseReader = tondeuseReader;
+    }
 
     @Override
     public Position process(Tondeuse tondeuse) {
@@ -19,7 +24,7 @@ public class TondeuseProcessor implements ItemProcessor<Tondeuse, Position> {
             switch (instruction) {
                 case 'D' -> position = turnRight(position);
                 case 'G' -> position = turnLeft(position);
-                case 'A' -> position = moveForward(position, tondeuse.getMaxX(), tondeuse.getMaxY());
+                case 'A' -> position = moveForward(position, tondeuseReader.getMaxX(), tondeuseReader.getMaxY());
                 default -> {
                 }
             }
